@@ -8,6 +8,10 @@ public class Main {
         int teste = 12;
 
         string text = "teste para inicio";
+
+        int numero = 4;
+
+        int num = 5;
     }
 
 }
