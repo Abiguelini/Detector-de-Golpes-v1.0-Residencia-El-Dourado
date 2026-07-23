@@ -6,6 +6,8 @@ public class Main {
         System.out.println(txt);
 
         int teste = 12;
+
+        string text = "teste para inicio";
     }
 
 }
