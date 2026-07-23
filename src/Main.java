@@ -9,7 +9,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("qual tua idade?");
         int valor =  sc.nextInt();
-        System.out.println("Tenho " + valor +" anos");
+        System.out.println("Tenho " + valor +" anoos");
 
 
     }
