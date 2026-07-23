@@ -4,6 +4,8 @@ public class Main {
     public static void main(String[] args) {
         String txt = "Inicio do trabalho";
         System.out.println(txt);
+
+        int teste = 12;
     }
 
 }
