@@ -5,6 +5,8 @@ public class AnalisadorDeGolpe {
     //Metodo da regra de negocio
     public static ResultadoAnalise analisar(String mensagem) {
 
+
+
         //Dicionario com palavras suspeitas
         List<String> palavraUrgencia = Arrays.asList("urgente", "bloqueado", "promoção", "última", "vencem hoje", "saldo", "senha");
         List<String> palavrasAcao = Arrays.asList("clique aqui", "pix", "dinheiro", "cartão", "código de segurança", "acesse", "acesse aqui", "visualizar", "valor");
@@ -16,15 +18,17 @@ public class AnalisadorDeGolpe {
         int pontosAcao = 0;
 
 
+        // Verifica a presença de palavras de urgência
         for(String palavra : palavraUrgencia) {
-            if (mensagemLower.contains (palavra)) {
-                pontosUrgencias ++;
+            if (mensagemLower.contains(palavra)) {
+                pontosUrgencias++;
             }
         }
 
-        for(String word : palavrasAcao) {
-            if (mensagemLower.contains (word)) {
-                pontosAcao ++;
+        // Verifica a presença de palavras de ação/dinheiro
+        for(String palavra : palavrasAcao) {
+            if (mensagemLower.contains(palavra)) {
+                pontosAcao++;
             }
         }
 
@@ -33,9 +37,10 @@ public class AnalisadorDeGolpe {
         } else if (pontosAcao >= 2) {
             return new ResultadoAnalise (true, "ALERTA - mensagem suspeita devido a várias características de golpe");
         } else {
-            return new ResultadoAnalise(false, "mensagem parece segura");
+            return new ResultadoAnalise(false, "mensagem parece segura devido o analisador não ter encontrado nenhuma mensagem suspeita");
         }
 
     }
+
 
 }
