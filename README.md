@@ -1,86 +1,38 @@
 # 🛡️ Detector de Golpes v1.0 (Java)
 
-Um sistema em Java desenvolvido para o curso **Fullstack 5.0** com o objetivo de analisar mensagens de texto e identificar possíveis tentativas de fraude (phishing) com base em regras de negócio e palavras-chave suspeitas.
+Projeto desenvolvido em Java para o curso **Fullstack 5.0** com o objetivo de analisar mensagens de texto e detectar possíveis tentativas de golpe/phishing utilizando regras de negócio e identificação de palavras-chave suspeitas.
 
 ---
 
-## 📌 Sumário
-- [Sobre o Projeto](#-sobre-o-projeto)
-- [Funcionalidades](#-funcionalidades)
-- [Arquitetura e Estrutura](#-arquitetura-e-estrutura)
-- [Divisão da Equipe](#-divisão-da-equipe)
-- [Perguntas Orientadoras e Decisões de Design](#-perguntas-orientadoras-e-decisões-de-design)
-- [Como Executar](#-como-executar)
-- [Exemplos de Uso](#-exemplos-de-uso)
+## 👥 Integrantes & Responsabilidades
+
+- **Rodrigo:** Mapeamento da lógica, cenários de teste e implementação da classe `Main`.
+- **Álvaro:** Arquitetura do projeto, fluxo Git/Code Review e classe `ResultadoAnalise`.
+- **Giu:** Regras de negócio e implementação da classe `AnalisadorDeGolpe`.
 
 ---
 
-## 🛡️ Sobre o Projeto
+## 🏗️ Estrutura do Projeto
 
-O **Detector de Golpes** analisa mensagens recebidas avaliando padrões recorrentes em golpes financeiros e engenharia social. A lógica identifica a presença de palavras de **urgência/alerta** e **solicitações financeiras/ações**, atribuindo uma pontuação de risco para classificar a mensagem.
-
----
-
-## ✨ Funcionalidades
-
-- **Tratamento de Texto**: Padronização da mensagem para minúsculas (`toLowerCase()`), evitando falhas de detecção por variações de caixa (ex: *Pix*, *PIX*, *pix*).
-- **Análise Baseada em Dicionários**:
-  - **Palavras de Urgência**: `urgente`, `bloqueado`, `promoção`, `última`, `vencem hoje`, `saldo`, `senha`.
-  - **Palavras de Ação/Financeiras**: `clique aqui`, `pix`, `dinheiro`, `cartão`, `código de segurança`, `acesse`, `acesse aqui`, `visualizar`, `valor`.
-- **Regras de Classificação**:
-  - **Alto Risco**: Presença de pelo menos 1 palavra de urgência **E** 1 palavra de ação financeira.
-  - **Médio/Alto Risco**: Presença de pelo menos 2 palavras de ação financeira.
-  - **Mensagem Segura**: Mensagens que não atingem os critérios de risco.
-- **Modos de Teste**:
-  - Cenários estáticos pré-configurados (Mensagem do Dia a Dia vs. Phishing).
-  - Teste interativo via terminal com o usuário digitando mensagens em tempo real (`Scanner`).
+- **`AnalisadorDeGolpe.java`**: Regra de negócio, dicionários de palavras suspeitas (urgência e ação financeira) e pontuação de risco.
+- **`ResultadoAnalise.java`**: Modelo/DTO que encapsula o resultado (`isGolpe`) e a justificativa da análise.
+- **`Main.java`**: Testes automatizados (cenário seguro, phishing) e entrada interativa via teclado (`Scanner`).
 
 ---
 
-## 📐 Arquitetura e Estrutura
+## 💡 Principais Decisões Tecnológicas
 
-O projeto é estruturado em **3 classes principais**, promovendo separação de responsabilidades e reutilização de código:
-
-| Classe | Responsabilidade |
-| :--- | :--- |
-| `AnalisadorDeGolpe` | Contém o método estático `analisar()`, onde reside toda a regra de negócio e pontuação de risco. |
-| `ResultadoAnalise` | Objeto de Transferência de Dados (DTO) que encapsula o status (`boolean isGolpe`) e a justificativa textual da análise. |
-| `Main` | Ponto de entrada da aplicação (`main`), responsável por executar os cenários de teste e a interface via linha de comando (`Scanner`). |
-
----
-
-## 👥 Divisão da Equipe
-
-| Integrante | Responsabilidades no Projeto |
-| :--- | :--- |
-| **Rodrigo** | Mapeamento da Lógica (pesquisa de exemplos de golpes reais e padrões), Criação de testes de exemplo e Implementação da classe `Main()`. |
-| **Álvaro** | Criação da Arquitetura do Projeto, Gestão de Git & Code Review e Implementação da classe `ResultadoAnalise()`. |
-| **Giu** | Transformação de regras de negócio em código e Implementação da classe `AnalisadorDeGolpe()`. |
-
----
-
-## 💡 Perguntas Orientadoras e Decisões de Design
-
-Durante o desenvolvimento, a equipe respondeu a questões fundamentais para a modelagem da solução:
-
-1. **Como diferenciar palavras iguais escritas de formas diferentes (`Pix`, `pix`, `pIx`)?**
-   - *Solução*: Converte-se todo o texto de entrada para minúsculo (`mensagem.toLowerCase()`) antes da checagem.
-2. **Quais classes utilizar?**
-   - *Solução*: `Main` (execução), `AnalisadorDeGolpe` (regras), `ResultadoAnalise` (retorno encapsulado).
-3. **Quais palavras podem ser utilizadas para efetuar golpes?**
-   - *Solução*: Separação das expressões em dois grupos centrais: urgência/pressão psicológica e solicitação de ação/dinheiro.
+1. **Tratamento de Caixa (`toLowerCase()`):** Garante a identificação de palavras independentemente de variações como `PIX`, `Pix` ou `pix`.
+2. **Dicionários Separados:** Divisão entre palavras de *urgência* e *ação financeira* para gerar diagnósticos mais precisos.
+3. **Encapsulamento:** Separação entre execução (`Main`), regras de domínio (`AnalisadorDeGolpe`) e transferência de dados (`ResultadoAnalise`).
 
 ---
 
 ## 🚀 Como Executar
 
-### Pré-requisitos
-- **Java JDK 8** ou superior instalado.
-- IDE de sua preferência (VS Code, IntelliJ IDEA, Eclipse) ou execução via terminal.
+```bash
+# Compilar o projeto
+javac Main.java AnalisadorDeGolpe.java ResultadoAnalise.java
 
-### Passo a Passo
-
-1. **Clone o repositório:**
-   ```bash
-   git clone [https://github.com/seu-usuario/detector-de-golpes.git](https://github.com/seu-usuario/detector-de-golpes.git)
-   cd detector-de-golpes
+# Executar a aplicação
+java Main
