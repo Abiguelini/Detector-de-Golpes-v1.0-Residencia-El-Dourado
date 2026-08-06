@@ -3,13 +3,12 @@ import java.util.List;
 
 public class AnalisadorDeGolpe {
     //Metodo da regra de negocio
-    public static ResultadoAnalise analisar(String mensagem) {
 
-
-
-        //Dicionario com palavras suspeitas
+    // Mudança pra fora do metodo, sugerido pelo Nicolas 
+    //Dicionario com palavras suspeitas
         List<String> palavraUrgencia = Arrays.asList("urgente", "bloqueado", "promoção", "última", "vencem hoje", "saldo", "senha");
         List<String> palavrasAcao = Arrays.asList("clique aqui", "pix", "dinheiro", "cartão", "código de segurança", "acesse", "acesse aqui", "visualizar", "valor");
+    public static ResultadoAnalise analisar(String mensagem) {
 
         //converte em letras minusculas
         String mensagemLower = mensagem.toLowerCase();
