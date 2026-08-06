@@ -8,14 +8,17 @@ public class AnalisadorDeGolpe {
     //Dicionario com palavras suspeitas
         List<String> palavraUrgencia = Arrays.asList("urgente", "bloqueado", "promoção", "última", "vencem hoje", "saldo", "senha");
         List<String> palavrasAcao = Arrays.asList("clique aqui", "pix", "dinheiro", "cartão", "código de segurança", "acesse", "acesse aqui", "visualizar", "valor");
+
+        // Variavel da pontuação
+        int pontosUrgencias = 0;
+        int pontosAcao = 0;
+
     public static ResultadoAnalise analisar(String mensagem) {
 
         //converte em letras minusculas
         String mensagemLower = mensagem.toLowerCase();
 
-        int pontosUrgencias = 0;
-        int pontosAcao = 0;
-
+    
 
         // Verifica a presença de palavras de urgência
         for(String palavra : palavraUrgencia) {
